@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Teaching Staff - Githumu High School{% endblock %}
+
+{% block content %}
+<section id="news"><h3>Teaching Staff</h3></section>
+
+
+<div class="staff-grid">
+    
+    {% for teacher in staff %}
+    <div class="staff-card">
+        <img src="{{ teacher.photo.url }}" alt="{{ teacher.name }}">
+        
+        <h3>{{ teacher.title }} {{ teacher.name }}</h3>
+        {% if teacher.role %}
+        <h4>{{ teacher.role }}</h4>
+        {% endif %}
+        <h5>Subjects: {{ teacher.subjects }}</h5>
+    </div> 
+    {% endfor %} 
+</div>
+{% endblock %}

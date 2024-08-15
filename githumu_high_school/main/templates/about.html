@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About - Githumu High School{% endblock %}
+
+{% block content %}
+<section id="news"><h3>About Githumu High School</h3></section>
+
+
+<section id="history">
+    <h2>History of A.I.C Githumu High School</h2>
+       <ul>
+           
+        <p>A.I.C Githumu High School, located in Ruchu, Murang’a County, was established in the 1950s by the African Inland Church. Initially founded as a primary school, it quickly became a cornerstone of education within the local community, embodying the vision of providing comprehensive learning experiences based on Christian principles.</p>
+        <p>By 1963, the school expanded its facilities and curriculum to accommodate secondary education, welcoming its first cohort of 35 boys. Within three years, the school embraced a co-educational model by enrolling 40 girls, marking a significant milestone in its development as an inclusive academic institution.</p>
+        <p>In subsequent years, Githumu High School reverted to an all-boys model, reflecting a shift in educational strategies and community needs. It continued to grow in both student population and infrastructure, transforming into a modern educational establishment with the capacity to host close to 2,000 boys. This evolution has ensured that the school remains a prominent feature in the local education landscape.</p>
+        <p>Today, Githumu High School stands as a testament to its enduring legacy and commitment to academic and co-curricular excellence. Its proximity to the Aberdare Ranges adds to the school’s unique character, with the chilly climate becoming a distinctive aspect of the student experience.</p>
+    
+        <!--{% for item in about.history.split%}
+            {% if item %}
+                <li>{{ item|safe }}.</li>
+            {% endif %}
+        {% endfor %}-->
+    </ul>
+</section>
+
+<section id="population">
+    
+    <h2>Population</h2>
+    
+    <p><strong>{{ about.population }}</strong> students</p>
+    
+</section>
+
+<section id="motto-vision-mission">
+  
+
+
+<div class="motto-container">
+    <h2>School Motto</h2>
+    <div class="motto-content">
+        <p>{{ about.school_motto }} <img src="{% static 'eagle.jpg' %}" alt="Eagle" class="eagle-icon"></p>
+        
+    </div>
+    <br>
+    <h2>Vision</h2>
+    <p>{{ about.vision }}</p>
+
+    <h2>Mission</h2>
+    <p>{{ about.mission }}</p>
+    </div>
+</section>
+
+<section id="subjects">
+    
+    <h2>Subjects Offered</h2>
+    <div class="motto-content">
+    <!--<ul>
+        {% for subject in about.subjects_offered.split %}
+        <li>{{ subject|safe }}</li>
+        {% endfor %}
+    </ul>-->
+            <ul>
+            <li>Mathematics</li>
+            <li>English</li>
+            <li>Kiswahili</li>
+            <li>Biology</li>
+            <li>Chemistry</li>
+            <li>Physics</li>
+            <li>Geography</li>
+            <li>History and Government</li>
+            <li>Business Studies</li>
+            
+            <li>Computer Studies</li>
+            
+            <li>Physical Education</li>
+            <li>Religious Education</li>
+            <li>Home Science</li>
+        </ul>
+    </div>
+</section>
+
+<section id="clubs">
+    <div class="motto-content">
+    <h2>Clubs</h2>
+    <!--<ul>
+        {% for club in about.clubs_and_societies.split %}
+        <li>{{ club|safe }}</li>
+        {% endfor %}
+    </ul>-->
+     <ul>
+            <li>Debate Club</li>
+            <li>Drama Club</li>
+            <li>Science Club</li>
+            <li>Environmental Club</li>
+            <li>Music Club</li>
+            <li>St. John Ambulance</li>
+            
+            <li>Sports Club</li>
+            
+            <li>Mathematics Club</li>
+            
+            
+            
+        </ul>
+    <h2>Societies</h2>
+    <ul>
+        <li>Christian Union (CU)</li>
+        <li>Scouting</li>
+        <li>Catholic Association (CA)</li>
+        <li>Red Cross</li>
+
+    </ul>
+</div>
+</section>
+
+<section id="contact">
+    
+    <div class="contact-container">
+      
+        <div class="contact-info">
+            <h3>Contact Information</h3>
+            {{ about.contact_information|linebreaks }}
+        </div>
+    
+        <div class="email-form">
+            <h3>Send us an email</h3>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="id_name">Your Name</label>
+                    <input type="text" name="name" id="id_name" placeholder=" FULL NAME" required>
+                </div>
+                <div class="form-group">
+                    <label for="id_email">Your Email Adress</label>
+                    <input type="email" name="email" id="id_email" placeholder="myemail@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="id_message">Your Message</label>
+                    <textarea name="message" id="id_message" placeholder="Write Your Message Here" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<section id="map">
+    <h2>Location</h2>
+    <div id="google-map"></div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCvpQsAPtuiszSQTryQV7Jq-irM12KCGUA&callback=initMap" async defer></script>
+<script>
+    function initMap() {
+        var location = {lat: -0.8280, lng: 36.9141}; // Corrected format for coordinates
+        var map = new google.maps.Map(document.getElementById('google-map'), {
+            zoom: 15,
+            center: location
+        });
+        var marker = new google.maps.Marker({
+            position: location,
+            map: map
+        });
+    }
+</script>
+
+{% endblock %}

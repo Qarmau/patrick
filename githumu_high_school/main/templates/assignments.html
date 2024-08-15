@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Holiday Assignments - Githumu High School{% endblock %}
+
+{% block content %}
+<section id="assignments">
+    <h2>Assignments for Form {{ assignment.grade }} - {{ assignment.title }} {{ assignment.year }}</h2>
+    
+    {% if related_assignments %}
+        <div class="assignments-list">
+            {% for related_assignment in related_assignments %}
+            <div class="assignment-card">
+                <h3>{{ related_assignment.subject }}</h3>
+                
+                <p><strong>Uploaded on:</strong> {{ related_assignment.date_uploaded }} by <strong>{{ related_assignment.author }}</strong></p>
+                <a href="{{ related_assignment.file.url }}" class="download-btn" download>Download {{ related_assignment.subject }} Assignment</a>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No assignments available for this grade, year, and title.</p>
+    {% endif %}
+</section>
+{% endblock %}

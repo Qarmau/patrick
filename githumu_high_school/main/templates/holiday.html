@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Holiday Assignments - Githumu High School{% endblock %}
+
+{% block content %}
+<section id="news">
+    <h3>Holiday Assignments for {{ holiday.year }}</h3>
+</section>
+ 
+
+<div class="assignments-grid"> 
+    {% for assignment in assignments %}
+    <div class="assignment-card">
+
+        
+            <a href="{% url 'grades' assignment.id %}" class="download-btn">{{ assignment.title }}</a>
+            <h5> Last Updated on: {{ assignment.date_uploaded }}</h5>
+        
+        {% empty %}
+        <li>No holiday assignments available for this year.</li>
+        {% endfor %}
+    </div>
+    {% endblock %}
