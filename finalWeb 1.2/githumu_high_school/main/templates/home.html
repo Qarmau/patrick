@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home - Githumu High School{% endblock %}
+
+{% block content %}
+<!--<div class="background-images">
+    {% for image in background_images %}
+    <div class="background-image" style="background-image: url('{{ image.image.url }}');"></div>
+    {% endfor %}
+</div>-->
+
+  
+
+<section id="upcoming-events">
+    <h2>Upcoming Events</h2>
+    <ul class="event-list">
+        {% for event in events %}
+        <li>
+            <h3>{{ event.title }}</h3>
+            <p class="date">{{ event.date|date:"F d, Y" }}</p>
+            <p>{{ event.description }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+</section>
+ 
+<section id="news"> 
+    <h2>Latest News</h2>
+    <ul class="news-list">
+        {% for item in news %}
+        <li>
+            <h3><a href="{% url 'news_detail' item.id %}">{{ item.title }}</a></h3>
+            <p class="date">{{ item.date|date:"F d, Y" }}</p>
+        </li>
+        
+        {% endfor %}
+    </ul>
+</section>
+
+<section id="calendar">
+    <h2>Calendar of Events</h2>
+    <div id="calendar-container"></div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.css">
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar-container');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            events: [
+                {% for event in calendar_events %}
+                {
+                    title: '{{ event.title }}',
+                    start: '{{ event.date|date:"Y-m-d" }}'
+                },
+                {% endfor %}
+            ]
+        });
+        calendar.render();
+    });
+</script>
+{% endblock %}

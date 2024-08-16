@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Achievements - Githumu High School{% endblock %}
+ 
+{% block content %}
+<section id="news"><h3>Achievements</h3></section>
+
+
+<section id="university-admissions">
+    <h2>University Admission Rates</h2>
+    <canvas id="admission-rate-graph"></canvas>
+</section>
+ 
+<section id="co-curricular-awards">
+    <h2>Co-Curricular Awards</h2>
+    <div class="admin-grid">
+        {% for award in awards %}
+        <div class="admin-card">
+            <img src="{{ award.photo.url }}" alt="{{ award.title }}">
+            <h3>{{ award.title }}</h3>
+            <p>Year: {{ award.year }}</p>
+            <p>{{ award.description }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById('admission-rate-graph').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [{% for admission in university_admissions %}'{{ admission.year }}',{% endfor %}],
+            datasets: [{
+                label: 'University Admission Rate',
+                data: [{% for admission in university_admissions %}{{ admission.university_admission_rate }},{% endfor %}],
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}
